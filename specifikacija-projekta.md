@@ -12,48 +12,51 @@ E-commerce Vibe je web prodavnica koja omogućava korisnicima da pregledaju proi
 ## 2. Tehnološki Stack
 
 ### Frontend
-- **Framework**: React (Vite)
-- **Styling**: Vanilla CSS (bez biblioteka, radi boljeg razumevanja osnova)
+- **Framework**: React (Vite + TypeScript)
+- **Styling**: Vanilla CSS
 - **State Management**: React Context API
 - **Routing**: React Router
 - **Testiranje**: Vitest (Unit), Playwright (End-to-End)
 
-### Backend (Mogućnost izbora)
-- **Opcija A (Java)**: Spring Boot, Spring Security (JWT), Hibernate/JPA, H2 Database.
-- **Opcija B (Node.js)**: Express.js, Sequelize ORM, SQLite.
-- **Testiranje**: JUnit/Mockito (Java) ili Vitest/Supertest (Node.js).
+### Backend
+- **Runtime**: Node.js + TypeScript
+- **Framework**: Express.js
+- **Database**: SQLite (za razvoj) / PostgreSQL (produkcija)
+- **ORM**: Sequelize ili Prisma
+- **Autentifikacija**: JWT (JSON Web Tokens)
+- **Testiranje**: Vitest & Supertest
 
 ---
 
 ## 3. Model Podataka (Entiteti)
 
 ### Product
-- `id`: Long / UUID
-- `name`: String (Obavezno, min 3 karaktera)
-- `description`: Text
-- `price`: Double (Obavezno, > 0)
-- `category`: String (Elektronika, Oprema, itd.)
-- `imageUrl`: String
-- `stock`: Integer (Obavezno, >= 0)
+- `id`: `string` (UUID)
+- `name`: `string` (Obavezno, min 3 karaktera)
+- `description`: `string`
+- `price`: `number` (Obavezno, > 0)
+- `category`: `string`
+- `imageUrl`: `string`
+- `stock`: `number` (Obavezno, >= 0)
 
 ### User
-- `id`: Long / UUID
-- `email`: String (Unique, Valid format)
-- `password`: String (Hashed)
-- `role`: Enum (ROLE_USER, ROLE_ADMIN)
+- `id`: `string` (UUID)
+- `email`: `string`
+- `password`: `string` (Hashed)
+- `role`: `'USER' | 'ADMIN'`
 
 ### Order
-- `id`: Long / UUID
-- `customerName`: String
-- `customerEmail`: String
-- `customerAddress`: String
-- `totalPrice`: Double
-- `items`: List<OrderItem>
+- `id`: `string` (UUID)
+- `customerName`: `string`
+- `customerEmail`: `string`
+- `customerAddress`: `string`
+- `totalPrice`: `number`
+- `items`: `OrderItem[]`
 
 ### OrderItem
-- `id`: Long
-- `product`: Product
-- `quantity`: Integer
+- `id`: `number`
+- `productId`: `string`
+- `quantity`: `number`
 
 ---
 
