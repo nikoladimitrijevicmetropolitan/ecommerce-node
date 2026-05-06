@@ -4,6 +4,7 @@ import { ProductListPage } from '../ProductListPage';
 import { MemoryRouter } from 'react-router-dom';
 import { api } from '../../services/api';
 import { CartProvider } from '../../context/CartContext';
+import type { Product, PaginatedResponse } from '../../types';
 
 // Mock the API service
 vi.mock('../../services/api', () => ({
@@ -14,7 +15,7 @@ vi.mock('../../services/api', () => ({
   },
 }));
 
-const mockProducts = [
+const mockProducts: Product[] = [
   {
     id: '1',
     name: 'Vibe Phone',
@@ -23,6 +24,8 @@ const mockProducts = [
     category: 'Mobile',
     imageUrl: 'phone.jpg',
     stock: 10,
+    createdAt: '',
+    updatedAt: '',
   },
   {
     id: '2',
@@ -32,12 +35,21 @@ const mockProducts = [
     category: 'Wearables',
     imageUrl: 'watch.jpg',
     stock: 0,
+    createdAt: '',
+    updatedAt: '',
   },
 ];
 
+const mockResponse: PaginatedResponse<Product> = {
+  data: mockProducts,
+  total: 2,
+  page: 1,
+  totalPages: 1,
+};
+
 describe('ProductListPage', () => {
   it('shows loading spinner then displays products', async () => {
-    vi.mocked(api.products.getAll).mockResolvedValue(mockProducts);
+    vi.mocked(api.products.getAll).mockResolvedValue(mockResponse);
 
     render(
       <CartProvider>
@@ -63,9 +75,11 @@ describe('ProductListPage', () => {
     vi.mocked(api.products.getAll).mockRejectedValue(new Error('API Error'));
 
     render(
-      <MemoryRouter>
-        <ProductListPage />
-      </MemoryRouter>
+      <CartProvider>
+        <MemoryRouter>
+          <ProductListPage />
+        </MemoryRouter>
+      </CartProvider>
     );
 
     await waitFor(() => {

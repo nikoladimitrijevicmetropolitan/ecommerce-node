@@ -14,4 +14,11 @@ export type CartItem = Product & {
   quantity: number;
 }
 
+export interface PaginatedResponse<T> {
+  data: T[];
+  total: number;
+  page: number;
+  totalPages: number;
+}
+
 export const DUMMY_TYPE = true;
