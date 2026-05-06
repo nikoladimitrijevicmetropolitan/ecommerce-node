@@ -4,6 +4,7 @@ import type { Product } from '../types';
 import { api } from '../services/api';
 import { LoadingSpinner } from '../components/LoadingSpinner';
 import { ArrowLeft, ShoppingCart, ShieldCheck, Truck } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 import './ProductDetailPage.css';
 
 export function ProductDetailPage() {
@@ -11,6 +12,7 @@ export function ProductDetailPage() {
   const [product, setProduct] = useState<Product | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { addToCart } = useCart();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -88,6 +90,7 @@ export function ProductDetailPage() {
             <button 
               className="btn btn-primary buy-btn"
               disabled={product.stock === 0}
+              onClick={() => addToCart(product)}
             >
               <ShoppingCart size={20} />
               {product.stock > 0 ? 'Add to Cart' : 'Out of Stock'}

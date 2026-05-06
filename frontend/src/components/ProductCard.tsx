@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import type { Product } from '../types';
 import { ShoppingCart } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 import './ProductCard.css';
 
 interface ProductCardProps {
@@ -8,6 +9,13 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
+  const { addToCart } = useCart();
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent navigating if wrapped in a link somehow
+    addToCart(product);
+  };
+
   return (
     <div className="product-card glass-panel animate-fade-in">
       <Link to={`/products/${product.id}`} className="product-image-wrapper">
@@ -29,6 +37,7 @@ export function ProductCard({ product }: ProductCardProps) {
             className="btn btn-primary add-to-cart-btn"
             disabled={product.stock === 0}
             aria-label="Add to cart"
+            onClick={handleAddToCart}
           >
             <ShoppingCart size={18} />
           </button>

@@ -10,4 +10,8 @@ export type Product = {
   updatedAt: string;
 }
 
+export type CartItem = Product & {
+  quantity: number;
+}
+
 export const DUMMY_TYPE = true;

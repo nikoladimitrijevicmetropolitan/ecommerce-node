@@ -3,6 +3,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { ProductListPage } from '../ProductListPage';
 import { MemoryRouter } from 'react-router-dom';
 import { api } from '../../services/api';
+import { CartProvider } from '../../context/CartContext';
 
 // Mock the API service
 vi.mock('../../services/api', () => ({
@@ -39,9 +40,11 @@ describe('ProductListPage', () => {
     vi.mocked(api.products.getAll).mockResolvedValue(mockProducts);
 
     render(
-      <MemoryRouter>
-        <ProductListPage />
-      </MemoryRouter>
+      <CartProvider>
+        <MemoryRouter>
+          <ProductListPage />
+        </MemoryRouter>
+      </CartProvider>
     );
 
     // Should show header

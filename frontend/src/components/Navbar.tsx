@@ -1,8 +1,12 @@
 import { ShoppingBag, Search, Menu } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 import './Navbar.css';
 
 export function Navbar() {
+  const { getCartCount } = useCart();
+  const count = getCartCount();
+
   return (
     <nav className="navbar glass-panel">
       <div className="container navbar-content">
@@ -19,10 +23,10 @@ export function Navbar() {
           <button className="icon-btn hidden-desktop">
             <Search size={22} />
           </button>
-          <button className="icon-btn cart-btn">
+          <Link to="/cart" className="icon-btn cart-btn">
             <ShoppingBag size={22} />
-            <span className="cart-badge">0</span>
-          </button>
+            {count > 0 && <span className="cart-badge">{count}</span>}
+          </Link>
           <button className="icon-btn hidden-desktop">
             <Menu size={22} />
           </button>

@@ -2,7 +2,8 @@ import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import { ProductCard } from '../ProductCard';
 import { MemoryRouter } from 'react-router-dom';
-import { Product } from '../../types';
+import type { Product } from '../../types';
+import { CartProvider } from '../../context/CartContext';
 
 const mockProduct: Product = {
   id: '1',
@@ -19,9 +20,11 @@ const mockProduct: Product = {
 describe('ProductCard Component', () => {
   it('renders product details correctly', () => {
     render(
-      <MemoryRouter>
-        <ProductCard product={mockProduct} />
-      </MemoryRouter>
+      <CartProvider>
+        <MemoryRouter>
+          <ProductCard product={mockProduct} />
+        </MemoryRouter>
+      </CartProvider>
     );
 
     expect(screen.getByText('Test Laptop')).toBeInTheDocument();
@@ -37,9 +40,11 @@ describe('ProductCard Component', () => {
   it('shows out of stock when stock is 0', () => {
     const outOfStockProduct = { ...mockProduct, stock: 0 };
     render(
-      <MemoryRouter>
-        <ProductCard product={outOfStockProduct} />
-      </MemoryRouter>
+      <CartProvider>
+        <MemoryRouter>
+          <ProductCard product={outOfStockProduct} />
+        </MemoryRouter>
+      </CartProvider>
     );
 
     expect(screen.getByText('Out of stock')).toBeInTheDocument();
