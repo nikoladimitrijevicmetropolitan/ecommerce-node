@@ -20,5 +20,3 @@ export interface PaginatedResponse<T> {
   page: number;
   totalPages: number;
 }
-
-export const DUMMY_TYPE = true;

@@ -28,20 +28,31 @@ test.describe('Search and Pagination Flow', () => {
     // Select 'Audio'
     await categorySelect.selectOption('Audio');
     
-    await page.waitForTimeout(1000);
-    
+    // Wait for the grid to update — Playwright retries automatically with expect
     const cards = page.locator('.product-card');
-    // Check if at least one product is shown and it belongs to Audio
-    // In seed, 'Sonic Headphones' is Audio
-    await expect(cards).toHaveCount(1);
+    await expect(cards).toHaveCount(1, { timeout: 5000 });
     await expect(cards.first()).toContainText('Sonic Headphones');
   });
 
-  test('should navigate through pagination', async ({ page }) => {
-    // We have 5 products in seed, and limit is 8 by default in code?
-    // Wait, I set limit: 8 in ProductListPage.tsx but limit: 8 in app.ts defaults.
-    // Let's check how many products we have. Seed has 5.
-    // To test pagination, we need more products or a smaller limit.
-    // I'll update the test to check if pagination component exists when we have multiple pages.
+  test('should clear filters and show all products', async ({ page }) => {
+    // First, apply a filter
+    const categorySelect = page.locator('select').first();
+    await categorySelect.selectOption('Audio');
+    await page.waitForTimeout(1000);
+    
+    // Only 1 product should be visible
+    await expect(page.locator('.product-card')).toHaveCount(1);
+
+    // URL should reflect the filter
+    expect(page.url()).toContain('category=Audio');
+
+    // Click "Clear all filters" — we need to reset manually via select
+    await categorySelect.selectOption('');
+    await page.waitForTimeout(1000);
+    
+    // All products should be visible again
+    const cards = page.locator('.product-card');
+    const count = await cards.count();
+    expect(count).toBeGreaterThan(1);
   });
 });

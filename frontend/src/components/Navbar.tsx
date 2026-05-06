@@ -1,4 +1,4 @@
-import { ShoppingBag, Search, Menu } from 'lucide-react';
+import { ShoppingBag, Menu } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 
@@ -13,20 +13,7 @@ export function Navbar() {
           <span className="text-2xl font-black tracking-tighter text-gradient">VIBE</span>
         </Link>
         
-        <div className="navbar-search hidden md:flex items-center relative w-full max-w-md mx-8">
-          <Search size={18} className="absolute left-3 text-slate-400" />
-          <input 
-            type="text" 
-            placeholder="Search products..." 
-            className="w-full pl-10 pr-4 py-2 bg-slate-100 dark:bg-slate-800 border-none rounded-full text-sm focus:ring-2 focus:ring-blue-500 transition-all outline-hidden"
-          />
-        </div>
-        
         <div className="navbar-actions flex items-center gap-2">
-          <button className="p-2 text-slate-600 dark:text-slate-300 md:hidden hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
-            <Search size={22} />
-          </button>
-          
           <Link to="/cart" className="cart-btn relative p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors group">
             <ShoppingBag size={22} className="group-hover:scale-110 transition-transform" />
             {count > 0 && (

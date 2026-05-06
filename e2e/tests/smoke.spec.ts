@@ -12,6 +12,7 @@ test('Backend API je dostupan', async ({ request }) => {
   // Provera da li backend API odgovara
   const response = await request.get('http://localhost:3000/api/products');
   expect(response.ok()).toBeTruthy();
-  const products = await response.json();
-  expect(Array.isArray(products)).toBeTruthy();
+  const body = await response.json();
+  expect(body).toHaveProperty('data');
+  expect(Array.isArray(body.data)).toBeTruthy();
 });
