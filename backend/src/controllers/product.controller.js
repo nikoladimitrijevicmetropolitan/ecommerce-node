@@ -2,7 +2,6 @@ const productService = require('../services/product.service');
 
 async function getAllProducts(req, res) {
   try {
-    console.log(`[DEBUG] Controller getAllProducts: query=${JSON.stringify(req.query)}`);
     const result = await productService.getProducts({
       page: parseInt(req.query.page) || undefined,
       limit: parseInt(req.query.limit) || undefined,

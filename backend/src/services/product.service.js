@@ -36,8 +36,6 @@ async function getProducts(params = {}) {
     order,
   });
 
-  console.log(`[DEBUG] getProducts: search="${search}", category="${category}", where=${JSON.stringify(where)}, total=${count}`);
-
   return {
     data: rows,
     total: count,
