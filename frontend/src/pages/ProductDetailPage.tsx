@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Product } from '../types';
+import type { Product } from '../types';
 import { api } from '../services/api';
 import { LoadingSpinner } from '../components/LoadingSpinner';
 import { ArrowLeft, ShoppingCart, ShieldCheck, Truck } from 'lucide-react';

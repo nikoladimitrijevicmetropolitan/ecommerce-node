@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Product } from '../types';
+import type { Product } from '../types';
 import { ShoppingCart } from 'lucide-react';
 import './ProductCard.css';
 

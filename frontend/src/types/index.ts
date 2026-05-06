@@ -1,4 +1,4 @@
-export interface Product {
+export type Product = {
   id: string;
   name: string;
   description: string;
@@ -9,3 +9,5 @@ export interface Product {
   createdAt: string;
   updatedAt: string;
 }
+
+export const DUMMY_TYPE = true;

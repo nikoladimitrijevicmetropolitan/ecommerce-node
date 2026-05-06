@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Product } from '../types';
+import type { Product } from '../types';
 import { api } from '../services/api';
 import { ProductCard } from '../components/ProductCard';
 import { LoadingSpinner } from '../components/LoadingSpinner';
